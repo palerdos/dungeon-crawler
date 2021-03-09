@@ -35,6 +35,7 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        ui.setStyle("-fx-background-color: #f26252;");
 
         BorderPane borderPane = new BorderPane();
 

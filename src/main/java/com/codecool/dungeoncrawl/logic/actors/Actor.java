@@ -7,10 +7,13 @@ public abstract class Actor implements Drawable {
     private Cell cell;
     private int health;
     private String type;
+    private int attack;
+    private int defense;
 
     public Actor(Cell cell) {
         this.cell = cell;
         this.cell.setActor(this);
+        this.health = 100;
     }
 
     public void move(int dx, int dy) {
@@ -21,6 +24,14 @@ public abstract class Actor implements Drawable {
             nextCell.setActor(this);
             cell = nextCell;
         }
+    }
+
+    public int getAttack(){
+        return this.attack;
+    }
+
+    public int getDefense(){
+        return this.defense;
     }
 
     public int getHealth() {
