@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.Directions;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import javafx.application.Application;
@@ -55,22 +56,22 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case W:
             case UP:
-                map.getPlayer().move(0, -1);
+                map.getPlayer().move(Directions.North.getCordX(), Directions.North.getCordY());
                 refresh();
                 break;
             case S:
             case DOWN:
-                map.getPlayer().move(0, 1);
+                map.getPlayer().move(Directions.South.getCordX(), Directions.South.getCordY());
                 refresh();
                 break;
             case A:
             case LEFT:
-                map.getPlayer().move(-1, 0);
+                map.getPlayer().move(Directions.West.getCordX(), Directions.West.getCordY());
                 refresh();
                 break;
             case D:
             case RIGHT:
-                map.getPlayer().move(1,0);
+                map.getPlayer().move(Directions.East.getCordX(), Directions.East.getCordY());
                 refresh();
                 break;
         }
