@@ -4,6 +4,7 @@ import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.Directions;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.actors.Actor;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -51,17 +52,29 @@ public class Main extends Application {
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
     }
+    private Actor checkIfNeighbourIsActor(Directions direction){
+
+        return map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getActor();
+    }
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case W:
             case UP:
-                map.getPlayer().move(Directions.North.getCordX(), Directions.North.getCordY());
+                if (checkIfNeighbourIsActor(Directions.North) != null){
+                    System.out.println(checkIfNeighbourIsActor(Directions.North).getTileName());
+                }else {
+                    map.getPlayer().move(Directions.North.getCordX(), Directions.North.getCordY());
+                }
                 refresh();
                 break;
             case S:
             case DOWN:
-                map.getPlayer().move(Directions.South.getCordX(), Directions.South.getCordY());
+                if (checkIfNeighbourIsActor(Directions.East) != null){
+                    System.out.println("YOYO");
+                }else {
+                    map.getPlayer().move(Directions.South.getCordX(), Directions.South.getCordY());
+                }
                 refresh();
                 break;
             case A:
