@@ -11,10 +11,12 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -24,7 +26,9 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
-    Label combatLog = new Label();
+    Label attackLabel = new Label();
+    Label defenseLabel = new Label();
+    Text combatLog = new Text();
 
 
     public static void main(String[] args) {
@@ -39,6 +43,12 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+
+        ui.add(new Label("Attack: "), 0, 1);
+        ui.add(attackLabel, 1, 1);
+
+        ui.add(new Label("Defense: "), 0, 2);
+        ui.add(defenseLabel, 1, 2);
         ui.add(combatLog, 0, 3);
         ui.setStyle("-fx-background-color: #f26252;");
 
@@ -56,14 +66,19 @@ public class Main extends Application {
         primaryStage.show();
     }
     private Actor checkIfNeighbourIsActor(Directions direction){
-
         return map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getActor();
     }
 
     public void initCombat(Actor attacker, Actor defender){
-        Actor winner = attacker;
-        defender.getCell().setActor(null);
-        combatLog.setText(winner.getTileName()+ "WINS");
+        while (attacker.getHealth() > 0 && defender.getHealth() > 0){
+            defender.setHealth(defender.getHealth() - (attacker.getAttack() - defender.getDefense()));
+            System.out.println(defender.getTileName() + defender.getHealth());
+            attacker.setHealth(attacker.getHealth() - (defender.getAttack() - attacker.getDefense()));
+            System.out.println(attacker.getTileName() + attacker.getHealth());
+        }
+        if (map.getPlayer().getHealth() > 0) {
+            defender.getCell().setActor(null);
+        }
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
@@ -121,5 +136,7 @@ public class Main extends Application {
             }
         }
         healthLabel.setText("" + map.getPlayer().getHealth());
+        attackLabel.setText("" + map.getPlayer().getAttack());
+        defenseLabel.setText("" + map.getPlayer().getDefense());
     }
 }
