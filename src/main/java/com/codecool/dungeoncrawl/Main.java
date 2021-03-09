@@ -24,6 +24,8 @@ public class Main extends Application {
             map.getHeight() * Tiles.TILE_WIDTH);
     GraphicsContext context = canvas.getGraphicsContext2D();
     Label healthLabel = new Label();
+    Label combatLog = new Label();
+
 
     public static void main(String[] args) {
         launch(args);
@@ -37,6 +39,7 @@ public class Main extends Application {
 
         ui.add(new Label("Health: "), 0, 0);
         ui.add(healthLabel, 1, 0);
+        ui.add(combatLog, 0, 3);
         ui.setStyle("-fx-background-color: #f26252;");
 
         BorderPane borderPane = new BorderPane();
@@ -57,34 +60,48 @@ public class Main extends Application {
         return map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getActor();
     }
 
+    public void initCombat(Actor attacker, Actor defender){
+        Actor winner = attacker;
+        defender.getCell().setActor(null);
+        combatLog.setText(winner.getTileName()+ "WINS");
+    }
+
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case W:
             case UP:
                 if (checkIfNeighbourIsActor(Directions.North) != null){
-                    System.out.println(checkIfNeighbourIsActor(Directions.North).getTileName());
-                }else {
+                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.North));
+                }else{
                     map.getPlayer().move(Directions.North.getCordX(), Directions.North.getCordY());
                 }
                 refresh();
                 break;
             case S:
             case DOWN:
-                if (checkIfNeighbourIsActor(Directions.East) != null){
-                    System.out.println("YOYO");
-                }else {
+                if (checkIfNeighbourIsActor(Directions.South) != null){
+                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.South));
+                }else{
                     map.getPlayer().move(Directions.South.getCordX(), Directions.South.getCordY());
                 }
                 refresh();
                 break;
             case A:
             case LEFT:
-                map.getPlayer().move(Directions.West.getCordX(), Directions.West.getCordY());
+                if (checkIfNeighbourIsActor(Directions.West) != null){
+                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.West));
+                }else{
+                    map.getPlayer().move(Directions.West.getCordX(), Directions.West.getCordY());
+                }
                 refresh();
                 break;
             case D:
             case RIGHT:
-                map.getPlayer().move(Directions.East.getCordX(), Directions.East.getCordY());
+                if (checkIfNeighbourIsActor(Directions.East) != null){
+                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.East));
+                }else{
+                    map.getPlayer().move(Directions.East.getCordX(), Directions.East.getCordY());
+                }
                 refresh();
                 break;
         }
