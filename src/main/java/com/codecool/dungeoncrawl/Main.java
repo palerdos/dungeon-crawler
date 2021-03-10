@@ -5,6 +5,7 @@ import com.codecool.dungeoncrawl.logic.Directions;
 import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -67,7 +68,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
-        pickUpBtn.setOnAction(event -> onBtnPress());
+        pickUpBtn.setOnAction(event -> onBtnPress(map.getPlayer()));
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
@@ -88,10 +89,12 @@ public class Main extends Application {
         }
     }
 
-    public void onBtnPress() {
+    public void onBtnPress(Player player) {
         System.out.println(map.getPlayer().getCell().getItem());
         if (map.getPlayer().getCell().getItem() != null) {
+            player.lootItem(map.getPlayer().getCell().getItem());
             map.getPlayer().getCell().setItem(null);
+
         }
     }
 
