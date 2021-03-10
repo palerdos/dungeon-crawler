@@ -34,6 +34,7 @@ public class Main extends Application {
     Label attackLabel = new Label();
     Label defenseLabel = new Label();
     Text combatLog = new Text();
+    Text inventory = new Text();
 
 
     public static void main(String[] args) {
@@ -48,15 +49,17 @@ public class Main extends Application {
 
         ui.add(pickUpBtn, 0, 0);
 
-        ui.add(new Label("Health: "), 0, 1);
-        ui.add(healthLabel, 1, 1);
+        ui.add(inventory, 0, 1);
 
-        ui.add(new Label("Attack: "), 0, 2);
-        ui.add(attackLabel, 1, 2);
+        ui.add(new Label("Health: "), 0, 2);
+        ui.add(healthLabel, 1, 2);
 
-        ui.add(new Label("Defense: "), 0, 3);
-        ui.add(defenseLabel, 1, 3);
-        ui.add(combatLog, 0, 4);
+        ui.add(new Label("Attack: "), 0, 3);
+        ui.add(attackLabel, 1, 3);
+
+        ui.add(new Label("Defense: "), 0, 4);
+        ui.add(defenseLabel, 1, 4);
+        ui.add(combatLog, 0, 5);
         ui.setStyle("-fx-background-color: #f26252;");
 
         BorderPane borderPane = new BorderPane();
@@ -90,11 +93,10 @@ public class Main extends Application {
     }
 
     public void onBtnPress(Player player) {
-        System.out.println(map.getPlayer().getCell().getItem());
         if (map.getPlayer().getCell().getItem() != null) {
             player.lootItem(map.getPlayer().getCell().getItem());
             map.getPlayer().getCell().setItem(null);
-
+            inventory.setText(player.displayInventory());
         }
     }
 

@@ -23,4 +23,10 @@ public class Player extends Actor {
     public void lootItem(Item item) {
         inventory.add(item);
     }
+
+    public String displayInventory() {
+        ArrayList<String> displayableInventory = new ArrayList<>();
+        inventory.forEach(item -> displayableInventory.add(item.getItemName()));
+        return displayableInventory.toString();
+    }
 }
