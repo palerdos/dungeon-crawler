@@ -12,10 +12,10 @@ public class Ghost extends Actor{
 
     @Override
     public void move(int dx, int dy) {
-        Cell nextCell = this.getCell().getNeighbor(dx, dy);
-        this.getCell().setActor(null);
-        nextCell.setActor(this);
-        this.setCell(nextCell);
+            Cell nextCell = this.getCell().getNeighbor(dx, dy);
+            this.getCell().setActor(null);
+            nextCell.setActor(this);
+            this.setCell(nextCell);
 
     }
 
