@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Ghost;
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.Directions;
@@ -46,12 +47,38 @@ public class Move {
             defender.getCell().setActor(null);
         }
     }
+    public boolean moveValidator(Actor monster, Directions direction){
+        if (monster instanceof Ghost){
+            if (direction == Directions.North && monster.getY() == 0) {
+                return false;
+            }else if (direction == Directions.South && monster.getY() == map.getWidth()) {
+                return false;
+            }else if (direction == Directions.East && monster.getX() == map.getHeight()) {
+                return false;
+            }else if (direction == Directions.West && monster.getX() == 0) {
+                return false;
+            }else {
+                return true;
+            }
+        }else if (monster instanceof Skeleton) {
+            Cell nextCell = monster.getCell().getNeighbor(direction.getCordX(), direction.getCordY());
+            return !nextCell.getType().getTileName().equals("wall") || (!(nextCell.getActor() instanceof Skeleton));
+        }
+        return true;
+
+    }
 
     public void moveNPCs () {
         ArrayList<Actor> monsterList = monsterCounter();
         System.out.println("List size: " + monsterList.size());
         monsterList.forEach(monster -> {
-            Directions randomDirection = getRandomDirection();
+            Directions randomDirection = null;
+            boolean moveIsValid = false;
+            while (!moveIsValid) {
+                randomDirection = getRandomDirection();
+                moveIsValid = moveValidator(monster, randomDirection);
+            }
+            assert randomDirection != null;
             monster.move(randomDirection.getCordX(), randomDirection.getCordY());
         });
     }
