@@ -4,14 +4,13 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Shield extends Item {
 
-    private int defenseBonus;
-
-    public Shield(Cell cell, int defenseBonus) {
-        super(cell, "Shield", defenseBonus);
+    public Shield(Cell cell) {
+        super(cell, "Shield", 1);
+        // TODO random number & name generator
     }
 
     @Override
     public String getTileName() {
-        return "buckler";
+        return "shield";
     }
 }

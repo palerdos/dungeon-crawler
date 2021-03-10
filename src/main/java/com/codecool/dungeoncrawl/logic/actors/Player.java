@@ -26,19 +26,15 @@ public class Player extends Actor {
     }
 
     public void useItem(Item item) {
-        switch (item.getItemName()) {
-            case "Health Potion":
-                if (getHealth() > 85) {
-                    setHealth(100);
-                } else {
-                    setHealth(getHealth() + item.getValue());
-                }
+        switch (item.getTileName()) {
+            case "health_potion":
+                setHealth(Math.min(getHealth() + item.getValue(), 100));
                 inventory.remove(item);
                 break;
-            case "Weapon":
+            case "weapon":
                 setAttack(getAttack() + item.getValue());
                 break;
-            case "Shield":
+            case "shield":
                 setDefense(getDefense() + item.getValue());
                 break;
         }

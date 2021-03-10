@@ -45,7 +45,7 @@ public class MapLoader {
                             break;
                         case 'p':
                             cell.setType(CellType.FLOOR);
-                            new HealthPotion(cell, 15);
+                            new HealthPotion(cell);
                             break;
                         case 'k':
                             cell.setType(CellType.FLOOR);
@@ -53,11 +53,11 @@ public class MapLoader {
                             break;
                         case 'w':
                             cell.setType(CellType.FLOOR);
-                            new Weapon(cell, 3);
+                            new Weapon(cell);
                             break;
                         case 'b':
                             cell.setType(CellType.FLOOR);
-                            new Shield(cell, 1);
+                            new Shield(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

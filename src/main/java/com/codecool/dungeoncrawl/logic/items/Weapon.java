@@ -4,10 +4,9 @@ import com.codecool.dungeoncrawl.logic.Cell;
 
 public class Weapon extends Item{
 
-    private int strengthBonus;
-
-    public Weapon(Cell cell, int strengthBonus) {
-        super(cell, "Weapon", strengthBonus);
+    public Weapon(Cell cell) {
+        super(cell, "Weapon", 3);
+        // TODO random number & name generator
     }
 
     @Override
