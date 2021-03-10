@@ -1,6 +1,7 @@
 package com.codecool.dungeoncrawl.logic;
 
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.Directions;
 
@@ -28,7 +29,7 @@ public class Move {
             moveNPCs();
         }
     }
-    
+
     private Actor checkIfNeighbourIsActor(Directions direction){
         return map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getActor();
     }
@@ -68,7 +69,9 @@ public class Move {
                 Cell cell = map.getCell(x, y);
                 if (cell.getActor() != null){
                     Actor actor = cell.getActor();
-                    if(actor instanceof Skeleton){
+                    if(actor instanceof Player){
+                        assert false;
+                    }else{
                         counter ++;
                         monsterList.add(actor);
                     }
