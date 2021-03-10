@@ -20,6 +20,13 @@ public abstract class Actor implements Drawable {
 
         Cell nextCell = cell.getNeighbor(dx, dy);
         if (!nextCell.getType().getTileName().equals("wall") && !(nextCell.getActor()instanceof Skeleton)) {
+            System.out.println(this.getTileName());
+            System.out.println("CordX: " + cell.getX());
+            System.out.println("CordY: " + cell.getY());
+            System.out.println("--------------------");
+            System.out.println("CordX: " +nextCell.getX());
+            System.out.println("CordY: " +nextCell.getY());
+            System.out.println("||||||||||||||||||||||||||||");
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
@@ -48,6 +55,10 @@ public abstract class Actor implements Drawable {
 
     public Cell getCell() {
         return cell;
+    }
+
+    public void setCell(Cell cell) {
+        this.cell = cell;
     }
 
     public void setHealth (int health){
