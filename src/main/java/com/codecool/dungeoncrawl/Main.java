@@ -11,9 +11,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -21,7 +19,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
@@ -34,7 +31,7 @@ public class Main extends Application {
     Label attackLabel = new Label();
     Label defenseLabel = new Label();
     Text combatLog = new Text();
-    Text inventory = new Text();
+    Alert inventory = new Alert(Alert.AlertType.INFORMATION);
 
 
     public static void main(String[] args) {
@@ -44,22 +41,24 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         GridPane ui = new GridPane();
+
+        inventory.setHeaderText(null);
+        inventory.setTitle("Inventory");
+
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
 
         ui.add(pickUpBtn, 0, 0);
 
-        ui.add(inventory, 0, 1);
+        ui.add(new Label("Health: "), 0, 1);
+        ui.add(healthLabel, 1, 1);
 
-        ui.add(new Label("Health: "), 0, 2);
-        ui.add(healthLabel, 1, 2);
+        ui.add(new Label("Attack: "), 0, 2);
+        ui.add(attackLabel, 1, 2);
 
-        ui.add(new Label("Attack: "), 0, 3);
-        ui.add(attackLabel, 1, 3);
-
-        ui.add(new Label("Defense: "), 0, 4);
-        ui.add(defenseLabel, 1, 4);
-        ui.add(combatLog, 0, 5);
+        ui.add(new Label("Defense: "), 0, 3);
+        ui.add(defenseLabel, 1, 3);
+        ui.add(combatLog, 0, 4);
         ui.setStyle("-fx-background-color: #f26252;");
 
         BorderPane borderPane = new BorderPane();
@@ -96,7 +95,11 @@ public class Main extends Application {
         if (map.getPlayer().getCell().getItem() != null) {
             player.lootItem(map.getPlayer().getCell().getItem());
             map.getPlayer().getCell().setItem(null);
-            inventory.setText(player.displayInventory());
+            if (player.displayInventory() != null) {
+                inventory.setContentText(player.displayInventory());
+            } else {
+                inventory.setContentText("Empty");
+            }
         }
     }
 
@@ -136,6 +139,10 @@ public class Main extends Application {
                 }else{
                     map.getPlayer().move(Directions.East.getCordX(), Directions.East.getCordY());
                 }
+                refresh();
+                break;
+            case I:
+                inventory.show();
                 refresh();
                 break;
         }
