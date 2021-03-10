@@ -65,21 +65,6 @@ public class Main extends Application {
         primaryStage.show();
 
     }
-    private Actor checkIfNeighbourIsActor(Directions direction){
-        return map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getActor();
-    }
-
-    public void initCombat(Actor attacker, Actor defender){
-        while (attacker.getHealth() > 0 && defender.getHealth() > 0){
-            defender.setHealth(defender.getHealth() - (attacker.getAttack() - defender.getDefense()));
-            System.out.println(defender.getTileName() + defender.getHealth());
-            attacker.setHealth(attacker.getHealth() - (defender.getAttack() - attacker.getDefense()));
-            System.out.println(attacker.getTileName() + attacker.getHealth());
-        }
-        if (map.getPlayer().getHealth() > 0) {
-            defender.getCell().setActor(null);
-        }
-    }
 
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
