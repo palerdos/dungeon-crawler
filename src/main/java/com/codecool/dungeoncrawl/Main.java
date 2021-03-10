@@ -1,10 +1,8 @@
 package com.codecool.dungeoncrawl;
 
-import com.codecool.dungeoncrawl.logic.Cell;
-import com.codecool.dungeoncrawl.logic.Directions;
-import com.codecool.dungeoncrawl.logic.GameMap;
-import com.codecool.dungeoncrawl.logic.MapLoader;
+import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
+import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -21,6 +19,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     GameMap map = MapLoader.loadMap();
+    Move move = new Move(map);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
             map.getHeight() * Tiles.TILE_WIDTH);
@@ -64,6 +63,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
+
     }
     private Actor checkIfNeighbourIsActor(Directions direction){
         return map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getActor();
@@ -84,39 +84,19 @@ public class Main extends Application {
     private void onKeyPressed(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
             case W:
-            case UP:
-                if (checkIfNeighbourIsActor(Directions.North) != null){
-                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.North));
-                }else{
-                    map.getPlayer().move(Directions.North.getCordX(), Directions.North.getCordY());
-                }
+                move.initRound(Directions.North);
                 refresh();
                 break;
             case S:
-            case DOWN:
-                if (checkIfNeighbourIsActor(Directions.South) != null){
-                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.South));
-                }else{
-                    map.getPlayer().move(Directions.South.getCordX(), Directions.South.getCordY());
-                }
+                move.initRound(Directions.South);
                 refresh();
                 break;
             case A:
-            case LEFT:
-                if (checkIfNeighbourIsActor(Directions.West) != null){
-                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.West));
-                }else{
-                    map.getPlayer().move(Directions.West.getCordX(), Directions.West.getCordY());
-                }
+                move.initRound(Directions.West);
                 refresh();
                 break;
             case D:
-            case RIGHT:
-                if (checkIfNeighbourIsActor(Directions.East) != null){
-                    initCombat(map.getPlayer(), checkIfNeighbourIsActor(Directions.East));
-                }else{
-                    map.getPlayer().move(Directions.East.getCordX(), Directions.East.getCordY());
-                }
+                move.initRound(Directions.East);
                 refresh();
                 break;
         }
