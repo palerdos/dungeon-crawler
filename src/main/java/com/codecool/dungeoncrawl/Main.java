@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.GameMap;
 import com.codecool.dungeoncrawl.logic.MapLoader;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Player;
+import com.codecool.dungeoncrawl.logic.items.Item;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -92,14 +93,11 @@ public class Main extends Application {
     }
 
     public void onBtnPress(Player player) {
-        if (map.getPlayer().getCell().getItem() != null) {
-            player.lootItem(map.getPlayer().getCell().getItem());
+        Item item = map.getPlayer().getCell().getItem();
+        if (item != null) {
+            player.lootItem(item);
             map.getPlayer().getCell().setItem(null);
-            if (player.displayInventory() != null) {
-                inventory.setContentText(player.displayInventory());
-            } else {
-                inventory.setContentText("Empty");
-            }
+            refresh();
         }
     }
 
@@ -166,5 +164,6 @@ public class Main extends Application {
         healthLabel.setText("" + map.getPlayer().getHealth());
         attackLabel.setText("" + map.getPlayer().getAttack());
         defenseLabel.setText("" + map.getPlayer().getDefense());
+        inventory.setContentText(map.getPlayer().displayInventory());
     }
 }

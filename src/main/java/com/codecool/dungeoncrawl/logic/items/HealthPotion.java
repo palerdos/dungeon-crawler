@@ -3,8 +3,10 @@ package com.codecool.dungeoncrawl.logic.items;
 import com.codecool.dungeoncrawl.logic.Cell;
 
 public class HealthPotion extends Item {
-    public HealthPotion(Cell cell) {
-        super(cell, "Health Potion");
+    private int healthBonus;
+
+    public HealthPotion(Cell cell, int healthBonus) {
+        super(cell, "Health Potion", healthBonus);
     }
 
     @Override
