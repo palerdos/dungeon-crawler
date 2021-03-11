@@ -2,12 +2,9 @@ package com.codecool.dungeoncrawl;
 
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
-<<<<<<< HEAD
 import com.codecool.dungeoncrawl.logic.actors.Player;
 import com.codecool.dungeoncrawl.logic.items.Item;
-=======
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
->>>>>>> feat/move_monsters
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
