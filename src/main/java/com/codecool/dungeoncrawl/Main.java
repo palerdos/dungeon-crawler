@@ -76,8 +76,7 @@ public class Main extends Application {
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
         pickUpBtn.setOnAction(event -> onBtnPress(map.getPlayer()));
-        console.setOnAction(event -> getUserInput(console, canvas));
-
+        console.setOnAction(event -> map.getPlayer().processCheatCode(getUserInput(console, canvas)));
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
 
