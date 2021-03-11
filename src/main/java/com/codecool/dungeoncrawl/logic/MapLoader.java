@@ -7,15 +7,15 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class MapLoader {
-    public static GameMap loadMap() {
-        InputStream is = MapLoader.class.getResourceAsStream("/map.txt");
+    public static GameMap loadMap(int level) {
+        InputStream is = MapLoader.class.getResourceAsStream("/map" + level + ".txt");
         Scanner scanner = new Scanner(is);
         int width = scanner.nextInt();
         int height = scanner.nextInt();
 
         scanner.nextLine(); // empty line
 
-        GameMap map = new GameMap(width, height, CellType.EMPTY);
+        GameMap map = new GameMap(width, height, CellType.EMPTY, level);
         for (int y = 0; y < height; y++) {
             String line = scanner.nextLine();
             for (int x = 0; x < width; x++) {
@@ -67,6 +67,9 @@ public class MapLoader {
                         case 'a':
                             cell.setType(CellType.FLOOR);
                             new Apple(cell);
+                            break;
+                        case 'G':
+                            cell.setType(CellType.GATE);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
