@@ -29,6 +29,8 @@ public class Player extends Actor {
     public void useItem(Item item) {
         switch (item.getTileName()) {
             case "health_potion":
+            case "cheese":
+            case "apple":
                 setHealth(Math.min(getHealth() + item.getValue(), 100));
                 inventory.remove(item);
                 break;

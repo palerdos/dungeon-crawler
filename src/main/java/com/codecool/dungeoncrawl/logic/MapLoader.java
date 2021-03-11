@@ -60,6 +60,14 @@ public class MapLoader {
                             cell.setType(CellType.FLOOR);
                             new Shield(cell);
                             break;
+                        case 'c':
+                            cell.setType(CellType.FLOOR);
+                            new Cheese(cell);
+                            break;
+                        case 'a':
+                            cell.setType(CellType.FLOOR);
+                            new Apple(cell);
+                            break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");
                     }
