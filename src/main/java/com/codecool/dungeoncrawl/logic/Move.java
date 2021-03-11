@@ -51,9 +51,9 @@ public class Move {
         if (monster instanceof Ghost){
             if (direction == Directions.North && monster.getY() == 0) {
                 return false;
-            }else if (direction == Directions.South && monster.getY() == map.getWidth()) {
+            }else if (direction == Directions.South && monster.getY() == map.getHeight() -1) {
                 return false;
-            }else if (direction == Directions.East && monster.getX() == map.getHeight()) {
+            }else if (direction == Directions.East && monster.getX() == map.getWidth() -1) {
                 return false;
             }else if (direction == Directions.West && monster.getX() == 0) {
                 return false;
@@ -77,6 +77,8 @@ public class Move {
             while (!moveIsValid) {
                 randomDirection = getRandomDirection();
                 moveIsValid = moveValidator(monster, randomDirection);
+                System.out.println(moveIsValid);
+                System.out.println(randomDirection);
             }
             assert randomDirection != null;
             monster.move(randomDirection.getCordX(), randomDirection.getCordY());
