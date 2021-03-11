@@ -81,6 +81,9 @@ public class Move {
                 System.out.println(randomDirection);
             }
             assert randomDirection != null;
+            if (checkIfNeighbourIsActor(randomDirection) != null){
+                initCombat(monster, map.getPlayer());
+            }
             monster.move(randomDirection.getCordX(), randomDirection.getCordY());
         });
     }
