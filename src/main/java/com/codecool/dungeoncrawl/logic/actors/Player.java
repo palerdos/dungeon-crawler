@@ -70,8 +70,12 @@ public class Player extends Actor {
                 break;
             case "armory":
                 for (int i = 0; i < 3; i++) {
-                    inventory.add(new Weapon(getCell()));
-                    inventory.add(new Shield(getCell()));
+                    Item weapon = new Weapon(getCell());
+                    Item shield = new Shield(getCell());
+                    inventory.add(weapon);
+                    useItem(weapon);
+                    inventory.add(shield);
+                    useItem(shield);
                 }
                 break;
             default:
