@@ -97,7 +97,6 @@ public class Main extends Application {
     }
 
     private void onKeyPressed(KeyEvent keyEvent) {
-        System.out.println(keyEvent);
         switch (keyEvent.getCode()) {
             case W:
                 move.initRound(Directions.North);
@@ -124,9 +123,6 @@ public class Main extends Application {
                 refresh();
                 break;
         }
-        /*if (map.getPlayer().getCell().getType() == CellType.GATE) {
-            loadNextLevel();
-        }*/
     }
 
     private boolean isItUnlockedDoor(Directions direction){
