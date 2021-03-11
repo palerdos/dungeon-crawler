@@ -6,6 +6,7 @@ import com.codecool.dungeoncrawl.logic.actors.Player;
 import java.util.ArrayList;
 
 public class GameMap {
+    private int level;
     private int width;
     private int height;
     private Cell[][] cells;
@@ -13,7 +14,8 @@ public class GameMap {
 
     private Player player;
 
-    public GameMap(int width, int height, CellType defaultCellType) {
+    public GameMap(int width, int height, CellType defaultCellType, int level) {
+        this.level = level;
         this.width = width;
         this.height = height;
         cells = new Cell[width][height];
@@ -22,6 +24,10 @@ public class GameMap {
                 cells[x][y] = new Cell(this, x, y, defaultCellType);
             }
         }
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public void addActor(Actor actor){
