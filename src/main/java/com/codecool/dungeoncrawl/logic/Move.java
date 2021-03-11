@@ -35,11 +35,18 @@ public class Move {
         return map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getActor();
     }
 
+    private int calculateDamage(int attack, int defense){
+        int damage = attack - defense;
+        if (damage < 0){
+            damage = attack;
+        }
+        return damage;
+    }
 
     public void initCombat(Actor attacker, Actor defender){
         while (attacker.getHealth() > 0 && defender.getHealth() > 0){
-            defender.setHealth(defender.getHealth() - (attacker.getAttack() - defender.getDefense()));
-            attacker.setHealth(attacker.getHealth() - (defender.getAttack() - attacker.getDefense()));
+            defender.setHealth(defender.getHealth() - calculateDamage(attacker.getAttack(), defender.getDefense()));
+            attacker.setHealth(attacker.getHealth() - calculateDamage(defender.getAttack(), attacker.getDefense()));
         }
         if (map.getPlayer().getHealth() > 0) {
             defender.getCell().setActor(null);

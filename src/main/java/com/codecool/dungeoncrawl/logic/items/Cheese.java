@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.util.RandomHelper;
 public class Cheese extends Item {
 
     public Cheese(Cell cell) {
-        super(cell, "Cheese", RandomHelper.getRandomNumber(1, 3));
+        super(cell, "Cheese", RandomHelper.getRandomNumber(5, 10));
     }
 
     @Override

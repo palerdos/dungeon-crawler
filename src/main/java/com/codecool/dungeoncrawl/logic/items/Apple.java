@@ -5,7 +5,7 @@ import com.codecool.dungeoncrawl.logic.util.RandomHelper;
 
 public class Apple extends Item {
     public Apple(Cell cell) {
-        super(cell, "Apple", RandomHelper.getRandomNumber(1, 5));
+        super(cell, "Apple", RandomHelper.getRandomNumber(2, 5));
     }
 
     @Override

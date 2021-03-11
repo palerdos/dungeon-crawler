@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.util.RandomHelper;
 public class HealthPotion extends Item {
 
     public HealthPotion(Cell cell) {
-        super(cell, "Health Potion", RandomHelper.getRandomNumber(5, 15));
+        super(cell, "Health Potion", RandomHelper.getRandomNumber(10, 25));
     }
 
     @Override
