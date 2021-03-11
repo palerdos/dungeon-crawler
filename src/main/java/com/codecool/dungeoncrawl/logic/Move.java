@@ -48,22 +48,31 @@ public class Move {
         }
     }
     public boolean moveValidator(Actor monster, Directions direction){
+        Cell nextCell = monster.getCell().getNeighbor(direction.getCordX(), direction.getCordY());
         if (monster instanceof Ghost){
-            if (direction == Directions.North && monster.getY() == 0) {
+            if (direction == Directions.North && monster.getY() == 1) {
                 return false;
-            }else if (direction == Directions.South && monster.getY() == map.getHeight() -1) {
+            }else if (direction == Directions.South && monster.getY() == map.getHeight() -2) {
                 return false;
-            }else if (direction == Directions.East && monster.getX() == map.getWidth() -1) {
+            }else if (direction == Directions.East && monster.getX() == map.getWidth() -2) {
                 return false;
-            }else if (direction == Directions.West && monster.getX() == 0) {
+            }else if (direction == Directions.West && monster.getX() == 1) {
                 return false;
             }else {
-                return true;
+                if (nextCell.getActor() instanceof Skeleton || nextCell.getActor() instanceof Ghost){
+                    return false;
+                }else {
+                    return true;
+                }
             }
         }else if (monster instanceof Skeleton) {
-            Cell nextCell = monster.getCell().getNeighbor(direction.getCordX(), direction.getCordY());
-            return !nextCell.getType().getTileName().equals("wall") || (!(nextCell.getActor() instanceof Skeleton));
+            if ((!nextCell.getType().getTileName().equals("wall")) && (nextCell.getActor() instanceof Skeleton || nextCell.getActor() instanceof Ghost)){
+                return false;
+            }else{
+                return true;
+            }
         }
+
         return true;
 
     }
@@ -73,18 +82,25 @@ public class Move {
         System.out.println("List size: " + monsterList.size());
         monsterList.forEach(monster -> {
             Directions randomDirection = null;
+            int counter = 0;
             boolean moveIsValid = false;
             while (!moveIsValid) {
+                counter++;
                 randomDirection = getRandomDirection();
                 moveIsValid = moveValidator(monster, randomDirection);
-                System.out.println(moveIsValid);
-                System.out.println(randomDirection);
+                //System.out.println(moveIsValid);
+                //System.out.println(randomDirection);
+                if (counter > 4){
+                    randomDirection = null;
+                    break;
+                }
             }
-            assert randomDirection != null;
-            if (checkIfNeighbourIsActor(randomDirection) != null){
-                initCombat(monster, map.getPlayer());
+            if (randomDirection != null) {
+                if (checkIfNeighbourIsActor(randomDirection) instanceof Player) {
+                    initCombat(monster, map.getPlayer());
+                }
+                monster.move(randomDirection.getCordX(), randomDirection.getCordY());
             }
-            monster.move(randomDirection.getCordX(), randomDirection.getCordY());
         });
     }
 
@@ -94,7 +110,8 @@ public class Move {
     }
 
     public ArrayList<Actor> monsterCounter() {
-        int counter = 0;
+        int skeletonCounter = 0;
+        int ghostCounter = 0;
         ArrayList <Actor> monsterList = new ArrayList<>();
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
@@ -104,13 +121,15 @@ public class Move {
                     if(actor instanceof Player){
                         assert false;
                     }else{
-                        counter ++;
                         monsterList.add(actor);
+                        if (actor instanceof Ghost) ghostCounter ++;
+                        if (actor instanceof Skeleton) skeletonCounter ++;
                     }
                 }
             }
         }
-        System.out.println("COUNTER: " + counter);
+        System.out.println("Ghostcounter: " + ghostCounter);
+        System.out.println("Skeletoncounter: " + skeletonCounter);
         return monsterList;
     }
 
