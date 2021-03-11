@@ -35,11 +35,8 @@ public class Main extends Application {
     Label defenseLabel = new Label();
     Text combatLog = new Text();
     Alert inventory = new Alert(Alert.AlertType.INFORMATION);
-<<<<<<< HEAD
     Alert gameOver = new Alert(Alert.AlertType.WARNING);
-=======
     TextField console = new TextField();
->>>>>>> 9976cca839ac97a5d0e2ee273556be7d4ad7883b
 
 
     public static void main(String[] args) {
