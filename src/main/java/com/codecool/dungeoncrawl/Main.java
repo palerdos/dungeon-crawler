@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
@@ -33,6 +34,7 @@ public class Main extends Application {
     Label defenseLabel = new Label();
     Text combatLog = new Text();
     Alert inventory = new Alert(Alert.AlertType.INFORMATION);
+    Alert gameOver = new Alert(Alert.AlertType.WARNING);
 
 
     public static void main(String[] args) {
@@ -45,6 +47,8 @@ public class Main extends Application {
 
         inventory.setHeaderText(null);
         inventory.setTitle("Inventory");
+        gameOver.setHeaderText("WASTED");
+        gameOver.setTitle("GameOver");
 
         ui.setPrefWidth(200);
         ui.setPadding(new Insets(10));
@@ -86,12 +90,8 @@ public class Main extends Application {
             refresh();
         }
     }
-    public void loadNextLevel(){
-        if (map.getLevel() == 1) {
-            this.map = MapLoader.loadMap(2);
-        }else{
-            this.map = MapLoader.loadMap(1);
-        }
+    public void loadNextLevel(int level){
+        this.map = MapLoader.loadMap(level);
         this.move = new Move(this.map);
         refresh();
     }
@@ -100,22 +100,22 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case W:
                 move.initRound(Directions.North);
-                if (isItUnlockedDoor(Directions.North)) loadNextLevel();
+                if (isItUnlockedDoor(Directions.North)) loadNextLevel(2);
                 refresh();
                 break;
             case S:
                 move.initRound(Directions.South);
-                if (isItUnlockedDoor(Directions.South)) loadNextLevel();
+                if (isItUnlockedDoor(Directions.South)) loadNextLevel(2);
                 refresh();
                 break;
             case A:
                 move.initRound(Directions.West);
-                if (isItUnlockedDoor(Directions.West)) loadNextLevel();
+                if (isItUnlockedDoor(Directions.West)) loadNextLevel(2);
                 refresh();
                 break;
             case D:
                 move.initRound(Directions.East);
-                if (isItUnlockedDoor(Directions.East)) loadNextLevel();
+                if (isItUnlockedDoor(Directions.East)) loadNextLevel(2);
                 refresh();
                 break;
             case I:
@@ -123,6 +123,14 @@ public class Main extends Application {
                 refresh();
                 break;
         }
+        if (map.getPlayer().getHealth() < 1){
+            gameOver();
+        }
+    }
+
+    private void gameOver(){
+        gameOver.show();
+        loadNextLevel(1);
     }
 
     private boolean isItUnlockedDoor(Directions direction){

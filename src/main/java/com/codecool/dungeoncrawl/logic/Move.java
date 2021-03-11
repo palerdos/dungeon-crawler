@@ -23,7 +23,6 @@ public class Move {
     }
 
     public void initRound(Directions direction){
-        System.out.println(map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getTileName());
         if (checkIfNeighbourIsActor(direction) != null){
             initCombat(map.getPlayer(), checkIfNeighbourIsActor(direction));
         }else{
@@ -40,9 +39,7 @@ public class Move {
     public void initCombat(Actor attacker, Actor defender){
         while (attacker.getHealth() > 0 && defender.getHealth() > 0){
             defender.setHealth(defender.getHealth() - (attacker.getAttack() - defender.getDefense()));
-            System.out.println(defender.getTileName() + defender.getHealth());
             attacker.setHealth(attacker.getHealth() - (defender.getAttack() - attacker.getDefense()));
-            System.out.println(attacker.getTileName() + attacker.getHealth());
         }
         if (map.getPlayer().getHealth() > 0) {
             defender.getCell().setActor(null);
