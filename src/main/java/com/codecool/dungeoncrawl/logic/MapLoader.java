@@ -34,7 +34,6 @@ public class MapLoader {
                         case 's':
                             cell.setType(CellType.FLOOR);
                             new Skeleton(cell);
-
                             break;
                         case 'g':
                             cell.setType(CellType.FLOOR);
@@ -67,6 +66,10 @@ public class MapLoader {
                         case 'a':
                             cell.setType(CellType.FLOOR);
                             new Apple(cell);
+                            break;
+                        case 'B':
+                            cell.setType(CellType.FLOOR);
+                            new Boss(cell);
                             break;
                         default:
                             throw new RuntimeException("Unrecognized character: '" + line.charAt(x) + "'");

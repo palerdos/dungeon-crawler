@@ -1,13 +1,15 @@
 package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
+import com.codecool.dungeoncrawl.logic.util.RandomHelper;
 
 public class Ghost extends Actor{
     public Ghost(Cell cell) {
         super(cell);
         this.type = "monster";
-        this.setAttack(6);
-        this.setDefense(6);
+        this.setHealth(RandomHelper.getRandomNumber(25, 40));
+        this.setAttack(RandomHelper.getRandomNumber(5, 10));
+        this.setDefense(RandomHelper.getRandomNumber(1, 3));
     }
 
     @Override
