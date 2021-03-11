@@ -3,7 +3,7 @@ package com.codecool.dungeoncrawl;
 import com.codecool.dungeoncrawl.logic.*;
 import com.codecool.dungeoncrawl.logic.actors.Actor;
 import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.Cell;
 import javafx.application.Application;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    GameMap map = MapLoader.loadMap();
+    GameMap map = MapLoader.loadMap(1);
     Move move = new Move(map);
     Canvas canvas = new Canvas(
             map.getWidth() * Tiles.TILE_WIDTH,
@@ -86,8 +86,18 @@ public class Main extends Application {
             refresh();
         }
     }
+    public void loadNextLevel(){
+        if (map.getLevel() == 1) {
+            this.map = MapLoader.loadMap(2);
+        }else{
+            this.map = MapLoader.loadMap(1);
+        }
+        this.move = new Move(this.map);
+        refresh();
+    }
 
     private void onKeyPressed(KeyEvent keyEvent) {
+        System.out.println(keyEvent);
         switch (keyEvent.getCode()) {
             case W:
                 move.initRound(Directions.North);
@@ -109,6 +119,9 @@ public class Main extends Application {
                 inventory.show();
                 refresh();
                 break;
+        }
+        if (map.getPlayer().getCell().getType() == CellType.GATE) {
+            loadNextLevel();
         }
     }
 
