@@ -22,11 +22,31 @@ public class Player extends Actor {
 
     public void lootItem(Item item) {
         inventory.add(item);
+        useItem(item);
+    }
+
+    public void useItem(Item item) {
+        switch (item.getTileName()) {
+            case "health_potion":
+                setHealth(Math.min(getHealth() + item.getValue(), 100));
+                inventory.remove(item);
+                break;
+            case "weapon":
+                setAttack(getAttack() + item.getValue());
+                break;
+            case "shield":
+                setDefense(getDefense() + item.getValue());
+                break;
+        }
     }
 
     public String displayInventory() {
         ArrayList<String> displayableInventory = new ArrayList<>();
         inventory.forEach(item -> displayableInventory.add(item.getItemName()));
-        return displayableInventory.toString();
+        if (displayableInventory.size() > 0) {
+            return displayableInventory.toString();
+        } else {
+            return "No items in inventory";
+        }
     }
 }
