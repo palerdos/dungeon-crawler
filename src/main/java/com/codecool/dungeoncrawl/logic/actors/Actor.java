@@ -17,12 +17,17 @@ public abstract class Actor implements Drawable {
     }
 
     public void move(int dx, int dy) {
-
         Cell nextCell = cell.getNeighbor(dx, dy);
-        if (!nextCell.getType().getTileName().equals("wall") && (!(nextCell.getType().getTileName().equals("gate")))) {
+        if (cell.getActor() instanceof Player && ((Player) cell.getActor()).isWallhackEnabled()) {
             cell.setActor(null);
             nextCell.setActor(this);
             cell = nextCell;
+        } else {
+            if (!nextCell.getType().getTileName().equals("wall") && (!(nextCell.getType().getTileName().equals("gate")))) {
+                cell.setActor(null);
+                nextCell.setActor(this);
+                cell = nextCell;
+            }
         }
     }
 

@@ -7,6 +7,7 @@ import com.codecool.dungeoncrawl.logic.items.*;
 import com.codecool.dungeoncrawl.logic.actors.Skeleton;
 import com.codecool.dungeoncrawl.logic.Cell;
 import javafx.application.Application;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -34,7 +35,11 @@ public class Main extends Application {
     Label defenseLabel = new Label();
     Text combatLog = new Text();
     Alert inventory = new Alert(Alert.AlertType.INFORMATION);
+<<<<<<< HEAD
     Alert gameOver = new Alert(Alert.AlertType.WARNING);
+=======
+    TextField console = new TextField();
+>>>>>>> 9976cca839ac97a5d0e2ee273556be7d4ad7883b
 
 
     public static void main(String[] args) {
@@ -54,16 +59,18 @@ public class Main extends Application {
         ui.setPadding(new Insets(10));
 
         ui.add(pickUpBtn, 0, 0);
+        console.setMaxWidth(100);
+        ui.add(console, 0, 1);
 
-        ui.add(new Label("Health: "), 0, 1);
-        ui.add(healthLabel, 1, 1);
+        ui.add(new Label("Health: "), 0, 2);
+        ui.add(healthLabel, 1, 2);
 
-        ui.add(new Label("Attack: "), 0, 2);
-        ui.add(attackLabel, 1, 2);
+        ui.add(new Label("Attack: "), 0, 3);
+        ui.add(attackLabel, 1, 3);
 
-        ui.add(new Label("Defense: "), 0, 3);
-        ui.add(defenseLabel, 1, 3);
-        ui.add(combatLog, 0, 4);
+        ui.add(new Label("Defense: "), 0, 4);
+        ui.add(defenseLabel, 1, 4);
+        ui.add(combatLog, 0, 5);
         ui.setStyle("-fx-background-color: #f26252;");
 
         BorderPane borderPane = new BorderPane();
@@ -76,13 +83,25 @@ public class Main extends Application {
         refresh();
         scene.setOnKeyPressed(this::onKeyPressed);
         pickUpBtn.setOnAction(event -> onBtnPress(map.getPlayer()));
-
+        console.setOnAction(event -> {
+            map.getPlayer().processCheatCode(getUserInput(console, canvas));
+            refresh();}
+            );
         primaryStage.setTitle("Dungeon Crawl");
         primaryStage.show();
 
     }
 
-    public void onBtnPress(Player player) {
+    private String getUserInput(TextField textField, Canvas canvas) {
+        String userInput = textField.getText();
+        console.clear();
+        canvas.requestFocus();
+        System.out.println(userInput);
+        return userInput;
+
+    }
+
+    private void onBtnPress(Player player) {
         Item item = map.getPlayer().getCell().getItem();
         if (item != null) {
             player.lootItem(item);

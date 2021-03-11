@@ -3,6 +3,8 @@ package com.codecool.dungeoncrawl.logic.actors;
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.Item;
 import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Shield;
+import com.codecool.dungeoncrawl.logic.items.Weapon;
 
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ public class Player extends Actor {
 
     ArrayList<Item> inventory = new ArrayList<>();
     private boolean hasKey;
+    private boolean wallhack;
 
     public Player(Cell cell) {
         super(cell);
@@ -28,6 +31,10 @@ public class Player extends Actor {
 
     public boolean isHasKey() {
         return hasKey;
+    }
+
+    public boolean isWallhackEnabled () {
+        return wallhack;
     }
 
     public void lootItem(Item item) {
@@ -50,6 +57,28 @@ public class Player extends Actor {
             case "shield":
                 setDefense(getDefense() + item.getValue());
                 break;
+        }
+    }
+
+    public void processCheatCode(String userInput) {
+        switch (userInput) {
+            case "wallhack":
+                this.wallhack = true;
+                break;
+            case "god":
+                this.setHealth(1000);
+                break;
+            case "armory":
+                for (int i = 0; i < 3; i++) {
+                    Item weapon = new Weapon(getCell());
+                    Item shield = new Shield(getCell());
+                    inventory.add(weapon);
+                    useItem(weapon);
+                    inventory.add(shield);
+                    useItem(shield);
+                }
+                break;
+            default:
         }
     }
 
