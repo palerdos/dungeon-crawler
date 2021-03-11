@@ -2,12 +2,14 @@ package com.codecool.dungeoncrawl.logic.actors;
 
 import com.codecool.dungeoncrawl.logic.Cell;
 import com.codecool.dungeoncrawl.logic.items.Item;
+import com.codecool.dungeoncrawl.logic.items.Key;
 
 import java.util.ArrayList;
 
 public class Player extends Actor {
 
     ArrayList<Item> inventory = new ArrayList<>();
+    private boolean hasKey;
 
     public Player(Cell cell) {
         super(cell);
@@ -20,10 +22,15 @@ public class Player extends Actor {
     public String getTileName() {
         return "player";
     }
+    public void setHasKey(boolean hasKey) {
+        this.hasKey = true;
+    }
+
 
     public void lootItem(Item item) {
         inventory.add(item);
         useItem(item);
+        if (item instanceof Key) setHasKey(true);
     }
 
     public void useItem(Item item) {
