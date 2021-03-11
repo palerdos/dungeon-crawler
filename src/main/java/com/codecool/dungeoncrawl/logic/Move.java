@@ -1,10 +1,10 @@
 package com.codecool.dungeoncrawl.logic;
 
-import com.codecool.dungeoncrawl.logic.actors.Actor;
-import com.codecool.dungeoncrawl.logic.actors.Ghost;
-import com.codecool.dungeoncrawl.logic.actors.Player;
-import com.codecool.dungeoncrawl.logic.actors.Skeleton;
+import com.codecool.dungeoncrawl.logic.actors.*;
 import com.codecool.dungeoncrawl.logic.Directions;
+import com.codecool.dungeoncrawl.logic.items.Key;
+import com.codecool.dungeoncrawl.logic.items.Shield;
+import com.codecool.dungeoncrawl.logic.items.Weapon;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -45,6 +45,13 @@ public class Move {
         }
         if (map.getPlayer().getHealth() > 0) {
             defender.getCell().setActor(null);
+            if (defender instanceof Skeleton) {
+                defender.getCell().setItem(new Shield(defender.getCell()));
+            } else if (defender instanceof Ghost) {
+                defender.getCell().setItem(new Weapon(defender.getCell()));
+            } else {
+                defender.getCell().setItem(new Key(defender.getCell()));
+            }
         }
     }
     public boolean moveValidator(Actor monster, Directions direction){
@@ -80,23 +87,25 @@ public class Move {
     public void moveNPCs () {
         ArrayList<Actor> monsterList = monsterCounter();
         monsterList.forEach(monster -> {
-            Directions randomDirection = null;
-            int counter = 0;
-            boolean moveIsValid = false;
-            while (!moveIsValid) {
-                counter++;
-                randomDirection = getRandomDirection();
-                moveIsValid = moveValidator(monster, randomDirection);
-                if (counter > 4){
-                    randomDirection = null;
-                    break;
+            if (!(monster instanceof Boss)) {
+                Directions randomDirection = null;
+                int counter = 0;
+                boolean moveIsValid = false;
+                while (!moveIsValid) {
+                    counter++;
+                    randomDirection = getRandomDirection();
+                    moveIsValid = moveValidator(monster, randomDirection);
+                    if (counter > 4){
+                        randomDirection = null;
+                        break;
+                    }
                 }
-            }
-            if (randomDirection != null) {
-                if (checkIfNeighbourIsActor(randomDirection) instanceof Player) {
-                    initCombat(monster, map.getPlayer());
+                if (randomDirection != null) {
+                    if (checkIfNeighbourIsActor(randomDirection) instanceof Player) {
+                        initCombat(monster, map.getPlayer());
+                    }
+                    monster.move(randomDirection.getCordX(), randomDirection.getCordY());
                 }
-                monster.move(randomDirection.getCordX(), randomDirection.getCordY());
             }
         });
     }
