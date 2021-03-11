@@ -19,7 +19,7 @@ public class Weapon extends Item{
 
 
     public Weapon(Cell cell) {
-        super(cell, RandomHelper.getRandomName(WEAPON_NAMES), RandomHelper.getRandomNumber(2, 5));
+        super(cell, RandomHelper.getRandomName(WEAPON_NAMES), RandomHelper.getRandomNumber(5, 10));
     }
 
     @Override

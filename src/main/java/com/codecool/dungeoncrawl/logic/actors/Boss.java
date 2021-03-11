@@ -6,7 +6,7 @@ import com.codecool.dungeoncrawl.logic.util.RandomHelper;
 public class Boss extends Actor{
     public Boss(Cell cell) {
         super(cell);
-        this.setHealth(75);
+        this.setHealth(50);
         this.setAttack(RandomHelper.getRandomNumber(10, 20));
         this.setDefense(RandomHelper.getRandomNumber(5, 10));
     }

@@ -18,7 +18,7 @@ public class Shield extends Item {
     };
 
     public Shield(Cell cell) {
-        super(cell, RandomHelper.getRandomName(SHIELD_NAMES), RandomHelper.getRandomNumber(1, 3));
+        super(cell, RandomHelper.getRandomName(SHIELD_NAMES), RandomHelper.getRandomNumber(3, 5));
     }
 
     @Override
