@@ -70,6 +70,7 @@ public class MapLoader {
                         case 'B':
                             cell.setType(CellType.FLOOR);
                             new Boss(cell);
+                            break;
                         case 'G':
                             cell.setType(CellType.GATE);
                             break;

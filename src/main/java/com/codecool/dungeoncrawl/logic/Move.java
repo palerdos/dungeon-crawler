@@ -23,6 +23,7 @@ public class Move {
     }
 
     public void initRound(Directions direction){
+        System.out.println(map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY()).getTileName());
         if (checkIfNeighbourIsActor(direction) != null){
             initCombat(map.getPlayer(), checkIfNeighbourIsActor(direction));
         }else{
