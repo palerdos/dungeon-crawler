@@ -79,7 +79,6 @@ public class Move {
 
     public void moveNPCs () {
         ArrayList<Actor> monsterList = monsterCounter();
-        System.out.println("List size: " + monsterList.size());
         monsterList.forEach(monster -> {
             Directions randomDirection = null;
             int counter = 0;
