@@ -88,8 +88,6 @@ public class Move {
                 counter++;
                 randomDirection = getRandomDirection();
                 moveIsValid = moveValidator(monster, randomDirection);
-                //System.out.println(moveIsValid);
-                //System.out.println(randomDirection);
                 if (counter > 4){
                     randomDirection = null;
                     break;
@@ -110,8 +108,6 @@ public class Move {
     }
 
     public ArrayList<Actor> monsterCounter() {
-        int skeletonCounter = 0;
-        int ghostCounter = 0;
         ArrayList <Actor> monsterList = new ArrayList<>();
         for (int x = 0; x < map.getWidth(); x++) {
             for (int y = 0; y < map.getHeight(); y++) {
@@ -122,14 +118,10 @@ public class Move {
                         assert false;
                     }else{
                         monsterList.add(actor);
-                        if (actor instanceof Ghost) ghostCounter ++;
-                        if (actor instanceof Skeleton) skeletonCounter ++;
                     }
                 }
             }
         }
-        System.out.println("Ghostcounter: " + ghostCounter);
-        System.out.println("Skeletoncounter: " + skeletonCounter);
         return monsterList;
     }
 

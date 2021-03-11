@@ -15,13 +15,6 @@ public class Ghost extends Actor{
 
         Cell nextCell = this.getCell().getNeighbor(dx, dy);
         if (!(nextCell.getActor() instanceof Ghost))
-            System.out.println(this.getTileName());
-            System.out.println("CordX: " + this.getCell().getX());
-            System.out.println("CordY: " + this.getCell().getY());
-            System.out.println("--------------------");
-            System.out.println("CordX: " +nextCell.getX());
-            System.out.println("CordY: " +nextCell.getY());
-            System.out.println("||||||||||||||||||||||||||||");
             this.getCell().setActor(null);
             nextCell.setActor(this);
             this.setCell(nextCell);
