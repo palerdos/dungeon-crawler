@@ -59,14 +59,14 @@ public class Move {
             }else if (direction == Directions.West && monster.getX() == 1) {
                 return false;
             }else {
-                if (nextCell.getActor() instanceof Skeleton || nextCell.getActor() instanceof Ghost){
+                if (nextCell.getActor() != null){
                     return false;
                 }else {
                     return true;
                 }
             }
         }else if (monster instanceof Skeleton) {
-            if ((!nextCell.getType().getTileName().equals("wall")) && (nextCell.getActor() instanceof Skeleton || nextCell.getActor() instanceof Ghost)){
+            if ((!nextCell.getType().getTileName().equals("wall")) && nextCell.getActor() != null){
                 return false;
             }else{
                 return true;
