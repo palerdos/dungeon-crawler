@@ -101,18 +101,22 @@ public class Main extends Application {
         switch (keyEvent.getCode()) {
             case W:
                 move.initRound(Directions.North);
+                if (isItUnlockedDoor(Directions.North)) loadNextLevel();
                 refresh();
                 break;
             case S:
                 move.initRound(Directions.South);
+                if (isItUnlockedDoor(Directions.South)) loadNextLevel();
                 refresh();
                 break;
             case A:
                 move.initRound(Directions.West);
+                if (isItUnlockedDoor(Directions.West)) loadNextLevel();
                 refresh();
                 break;
             case D:
                 move.initRound(Directions.East);
+                if (isItUnlockedDoor(Directions.East)) loadNextLevel();
                 refresh();
                 break;
             case I:
@@ -120,9 +124,14 @@ public class Main extends Application {
                 refresh();
                 break;
         }
-        if (map.getPlayer().getCell().getType() == CellType.GATE) {
+        /*if (map.getPlayer().getCell().getType() == CellType.GATE) {
             loadNextLevel();
-        }
+        }*/
+    }
+
+    private boolean isItUnlockedDoor(Directions direction){
+        Cell neighbourCell = map.getPlayer().getCell().getNeighbor(direction.getCordX(), direction.getCordY());
+        return neighbourCell.getType() == CellType.GATE && map.getPlayer().isHasKey();
     }
 
     private void refresh() {

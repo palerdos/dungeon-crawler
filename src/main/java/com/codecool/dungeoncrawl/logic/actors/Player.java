@@ -26,6 +26,9 @@ public class Player extends Actor {
         this.hasKey = true;
     }
 
+    public boolean isHasKey() {
+        return hasKey;
+    }
 
     public void lootItem(Item item) {
         inventory.add(item);
