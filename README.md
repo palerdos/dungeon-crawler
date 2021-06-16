@@ -4,7 +4,7 @@ This is a teamwork project created during the OOP with Java module of codecool. 
 
 ![title](game.png)
 
-##About the game
+## About the game
 
 The player starts in the bottom left corner of the map with a yellow creature. You can navigate around the map with WASD. There are monsters and items around the map, to interact with these you need to step on their tile. You can pick up items by standing on their tile and clicking the loot button in the side menu. By pressing 'I' you can look at your inventory.
 
